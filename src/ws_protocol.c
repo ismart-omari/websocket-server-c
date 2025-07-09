@@ -121,8 +121,8 @@ int handle_on_header_value(llhttp_t* parser, const char *value, size_t length) {
 		MUST include the "Upgrade" token. 
 	*/
 	if ( !strncmp("Connection", meta->lastHeader, meta->lastHeaderLength) ) {
-		if ( strncmp("Upgrade", value, length) ) {
-			llhttp_set_error_reason(parser, "Connection must be Upgrade");
+		if ( !strstr(value, "Upgrade") ) {
+			llhttp_set_error_reason(parser, "Connection must contain 'Upgrade'");
 			return -1;
 		}
 	}
